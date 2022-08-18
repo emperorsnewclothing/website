@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: enc
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - emperorsnewclothing.com
+    - www.emperorsnewclothing.com
+    secretName: ingress-app
+  rules:
+  - host: emperorsnewclothing.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: frontend
+          servicePort: 80
+  - host: www.emperorsnewclothing.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: frontend
+          servicePort: 80
